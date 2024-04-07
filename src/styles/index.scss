@@ -1,0 +1,16 @@
+@import './reset.scss';
+
+// 滚动条外观设置
+::-webkit-scrollbar {
+    width: .3571rem;
+}
+
+::-webkit-scrollbar-track {
+    background:#fff;
+}
+
+::-webkit-scrollbar-thumb {
+    width: .3571rem;
+    background-color: #F3F4F7;
+    border-radius: 10px;
+}
