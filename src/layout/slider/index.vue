@@ -1,28 +1,37 @@
 <template>
     <div class="slider-container">
         <div class="slider-head">
-            <input type="checkbox" v-model="checked" class="checkbox">
-            <el-date-picker type="datetime" v-model="value" class="date"></el-date-picker>
+            <input type="checkbox" v-model="currentList.finished" class="checkbox">
+            <el-date-picker type="datetime" v-model="currentList.date" class="date"></el-date-picker>
         </div>
         <div class="slider-info">
-            <el-input v-model="input" placeholder="上课" />
-            <el-input v-model="textarea" :autosize="{ minRows: 3 }" type="textarea" placeholder="地点：明理楼" />
+            <el-input v-model="currentList.title" placeholder="上课" />
+            <el-input v-model="currentList.desc" :autosize="{ minRows: 3 }" type="textarea" placeholder="地点：明理楼" />
         </div>
         <div class="slider-subtask">
-            <Subtask />
+            <div class="subtaskList" v-if="currentList && currentList.sublist.length != 0">
+                <Subtask v-for="(item, index) in currentList.sublist" :key="item.sublistId" :subtaskList="item" />
+            </div>
             <button>+添加子任务</button>
         </div>
+        <button class="slider-save" @click="saveData()">保存</button>
     </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
 import Subtask from '@/components/subtask.vue'
+import type { listType } from '@/api/user/type'
+import { ref, type PropType } from 'vue'
 
-const checked = ref(true)
-const value = ref(new Date)
-const input = ref('')
-const textarea = ref('')
+const props = defineProps({
+    currentList: Object as PropType<listType>
+})
+
+function saveData() {
+    console.log('保存信息')
+}
+
+
 </script>
 
 <style scoped lang="scss">
@@ -48,6 +57,7 @@ const textarea = ref('')
 .slider-info {
     border-bottom: 1px solid #C3C3C3;
     padding: .7143rem .7143rem 0;
+    color: #111;
 
 
     .el-input {
@@ -55,6 +65,7 @@ const textarea = ref('')
         border-radius: .3571rem;
         background-color: #fff;
         border: 0;
+        --el-input-text-color: #111;
 
 
         ::v-deep .el-input__wrapper {
@@ -76,6 +87,7 @@ const textarea = ref('')
         --el-input-focus-border-color: #fff;
         --el-input-border-color: #fff;
         --el-border-color: #fff;
+        z-index: -1;
     }
 }
 
@@ -88,5 +100,20 @@ const textarea = ref('')
         background-color: #fff;
         border: 0;
     }
+}
+
+.slider-save {
+    position: relative;
+    left: 21.4286rem;
+    top: 1.4286rem;
+    width: 4.2857rem;
+    height: 2.1429rem;
+    font-size: 1.1429rem;
+    background-color: #3F6DE6;
+    color: #fff;
+    border: 0;
+    border-radius: .3571rem;
+
+
 }
 </style>

@@ -10,9 +10,7 @@
             <div class="main-add">
                 <el-input v-model="title" placeholder="+添加任务">
                     <template #suffix>
-                        <el-icon class="el-input__icon">
-                            <calendar />
-                        </el-icon>
+                        <Selector />
                     </template>
                 </el-input>
             </div>
@@ -23,53 +21,31 @@
                     </el-icon>
                     已过期
                 </button>
-                <Task />
-                <Task />
-                <Task />
+                <div class="taskContainer">
+                    <Task v-for="(list, index) in lisUsed.data" :key="index" :list="list" @click="showInfo(list)" />
+                </div>
                 <button>
                     <el-icon style="margin-right: .3571rem;">
                         <ArrowRight />
                     </el-icon>
                     今天
                 </button>
-                <Task />
-                <Task />
-                <Task />
+                <div class="taskContainer">
+                    <Task v-for="(list, index) in lisToday.data" :key="index" :list="list" @click="showInfo(list)" />
+                </div>
                 <button>
                     <el-icon style="margin-right: .3571rem;">
                         <ArrowRight />
                     </el-icon>
                     已完成
                 </button>
-                <Task />
-                <Task />
-                <Task />
-                <Task />
-                <Task />
-                <Task />
-                <Task />
-                <Task />
-                <Task />
-                <Task />
-                <Task />
-                <Task />
-                <Task />
-                <Task />
-                <Task />
-                <Task />
-                <Task />
-                <Task />
-                <Task />
-                <Task />
-                <Task />
-                <Task />
-                <Task />
-                <Task />
-
+                <div class="taskContainer">
+                    <Task v-for="(list, index) in lisFinished.data" :key="index" :list="list" @click="showInfo(list)" />
+                </div>
             </div>
         </div>
         <div class="slider">
-            <Slider></Slider>
+            <Slider :currentList="currentList"></Slider>
         </div>
     </div>
 
@@ -77,9 +53,72 @@
 
 <script setup lang="ts">
 import Slider from '../slider/index.vue'
-import { ref } from 'vue'
+import Selector from '@/components/selector.vue'
+import { ref, reactive, onMounted, toRefs, toRef } from 'vue'
 import Task from '@/components/task.vue'
+import request from '@/utils/request';
+import type { listsType, userInfoType, listType } from '@/api/user/type'
+
+let showDetail = ref(false)
+let userInfo = ref<userInfoType>({
+    userId: 0,
+    username: "",
+    avatar: "",
+    lists: []
+}) //所有用户信息
+let avatar = ref<string>("") // 头像
+let lists = ref<listsType>({ data: [] }) //所有任务
 const title = ref('')
+let lisToday = ref<listsType>({ data: [] })  //今天
+let lisFinished = ref<listsType>({ data: [] })  // 今天已完成
+let lisUsed = ref<listsType>({ data: [] })  // 过去未完成
+let lisUsedFinished = ref<listsType>({ data: [] })
+// 分别划分任务为已过期、今天、已完成、过去已完成
+function divideTask(lists: listsType) {
+    let currentDate = new Date()
+    lists.value.data.forEach(function (item) {
+        let date = new Date(item.date + "T" + item.time + ":00")
+        if (date < currentDate) {
+            item.finished === false ? lisUsed.value.data.push(item) : lisUsedFinished.value.data.push(item)
+        } else {
+            item.finished === false ? lisToday.value.data.push(item) : lisFinished.value.data.push(item)
+        }
+    })
+}
+
+function getUserInfo() {
+    request({
+        url: "/userInfo"
+    }).then(response => {
+        userInfo.value = response[0]
+        avatar.value = userInfo.value.avatar
+        lists.value.data = userInfo.value.lists
+        divideTask(lists)
+    })
+}
+
+
+let currentList = ref<listType>({
+    listId: 0,
+    finished: false,
+    title: "",
+    date: "",
+    time: "",
+    sublist: [],
+    desc: "",
+    alarm: "准时",
+    repeat: '无',
+})
+function showInfo(list: listType) {
+    currentList.value = lists.value.data.find(item => item.listId === list.listId)
+}
+
+onMounted(() => {
+    console.log('挂载完毕')
+    getUserInfo()
+})
+
+
 </script>
 
 <style scoped lang="scss">

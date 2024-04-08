@@ -5,21 +5,13 @@
         </el-icon>
         <h4>{{ title }}</h4>
         <p>{{ count }}</p>
-        <button @click="getUserInfo">获取用户信息</button>
     </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
 defineProps(['title', 'count'])
-import request from '@/utils/request';
-function getUserInfo() {
-    request({
-        url: "/userInfo"
-    }).then(response => {
-        console.log(response)
-    })
-}
+
 </script>
 
 <style scoped lang="scss">

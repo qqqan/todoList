@@ -12,33 +12,38 @@ export interface dataType {
 }
 
 // 定义用户数据接口返回数据类型
-interface sublist {
+export interface sublistType {
     sublistId: string,
     finished: boolean,
     title: string,
-    date?: string,
-    time?: string
+    date: string | '',
+    time: string | '14:30'
 }
 
-interface lists {
+export interface listType {
     listId: number,
     finished: boolean,
     title: string,
-    desc?: string,
-    date?: string,
-    time?: string,
-    alarm?: string,
-    repeat?: string,
-    sublist?: sublist[]
-
+    desc: string | "",
+    date: string,
+    time: string,
+    alarm: string | "准时",
+    repeat: string | '无',
+    sublist: sublistType[] | []
 }
 
-interface userInfo {
+export interface listsType {
+    data: listType[] | []
+}
+
+
+export interface userInfoType {
     userId: number,
     username: string,
     avatar: string,
-    lists?: lists[]
+    lists: listType[] | []
 }
+
 
 
 //定义登录接口返回数据类型
@@ -50,5 +55,5 @@ export interface loginResponseData extends dataType {
 //定义获取用户信息返回数据类型
 export interface userInfoResponseData extends dataType {
     code: number,
-    data: userInfo
+    data: userInfoType
 }

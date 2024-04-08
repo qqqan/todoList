@@ -7,6 +7,8 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    Calender: typeof import('./src/components/calender.vue')['default']
+    DetailSelector: typeof import('./src/components/detailSelector/index.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCheckbox: typeof import('element-plus/es')['ElCheckbox']
     ElCollapse: typeof import('element-plus/es')['ElCollapse']
@@ -18,9 +20,11 @@ declare module 'vue' {
     ElInput: typeof import('element-plus/es')['ElInput']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    Selector: typeof import('./src/components/selector.vue')['default']
     Subnav: typeof import('./src/components/subnav.vue')['default']
     Subtask: typeof import('./src/components/subtask.vue')['default']
     Task: typeof import('./src/components/task.vue')['default']
+    Test: typeof import('./src/components/test.vue')['default']
     Time: typeof import('./src/components/time.vue')['default']
   }
 }

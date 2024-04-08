@@ -1,19 +1,36 @@
 <template>
     <div class="task-item">
-        <input type="checkbox">
-        <div class="task-item_title">体测</div>
+        <input type="checkbox" v-model="list.finished">
+        <div class="task-item_title">{{ list.title }}</div>
         <div class="task-item_timer">
-            2024年4月1日
+            {{ formattedDate }}
         </div>
         <div class="task-item_delete">
             <Delete />
         </div>
+
     </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-defineProps(['title', 'count'])
+import { ref, computed, reactive, type PropType } from 'vue'
+import type { listsType } from '@/api/user/type'
+
+const props = defineProps({
+    list: Object as PropType<listsType>
+})
+
+const list = reactive<listsType>(props.list)
+// 修改日期展示模式
+const formattedDate = computed(() => {
+    const date = new Date(list.date);
+
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1; // 月份从0开始，需要加1
+    const day = date.getDate();
+
+    return year + "年" + month + "月" + day + "日";
+})
 </script>
 
 <style scoped lang="scss">
@@ -34,6 +51,7 @@ input[type=checkbox] {
     margin-right: .7143rem;
     width: 1.1429rem;
     height: 1.1429rem;
+
 }
 
 .task-item_title {

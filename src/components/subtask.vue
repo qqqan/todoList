@@ -1,7 +1,7 @@
 <template>
     <div class="subtask-item">
-        <input type="checkbox">
-        <input type="text">
+        <input type="checkbox" v-model="subtaskList.finished">
+        <input type="text" v-model="subtaskList.title">
         <div class="subtask-item_timer">
             <AlarmClock />
         </div>
@@ -13,7 +13,12 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-defineProps(['title', 'count'])
+import type { sublistType } from '@/api/user/type'
+
+const props = defineProps({
+    subtaskList: Object as PropType<sublistType>
+})
+
 </script>
 
 <style scoped lang="scss">

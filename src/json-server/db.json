@@ -22,8 +22,8 @@
                     "finished": false,
                     "title": "学习前端",
                     "desc": "html css javascript",
-                    "date": "2024.04.07",
-                    "time": "12:00",
+                    "date": "2024-04-07",
+                    "time": "24:00",
                     "alarm": "提前1小时",
                     "repeat": "每天",
                     "sublist": [
@@ -31,22 +31,22 @@
                             "sublistId": "1-1",
                             "finished": true,
                             "title": "学习html",
-                            "date": "2024.04.07",
-                            "time": "12:00"
+                            "date": "2024-04-07",
+                            "time": "24:00"
                         },
                         {
                             "sublistId": "1-2",
                             "finished": true,
                             "title": "学习css",
-                            "date": "2024.04.07",
-                            "time": "12:00"
+                            "date": "2024-04-07",
+                            "time": "24:00"
                         },
                         {
                             "sublistId": "1-3",
                             "finished": false,
                             "title": "学习javascript",
-                            "date": "2024.04.07",
-                            "time": "12:00"
+                            "date": "2024-04-07",
+                            "time": "24:00"
                         }
                     ]
                 },
@@ -55,8 +55,8 @@
                     "finished": true,
                     "title": "饥荒攻略",
                     "desc": "",
-                    "date": "2024.04.07",
-                    "time": "",
+                    "date": "2024-04-07",
+                    "time": "24:00",
                     "alarm": "",
                     "repeat": "",
                     "sublist": []
@@ -66,8 +66,19 @@
                     "finished": false,
                     "title": "种地",
                     "desc": "回家帮忙种地",
-                    "date": "2024.04.04",
-                    "time": "",
+                    "date": "2024-04-04",
+                    "time": "24:00",
+                    "alarm": "",
+                    "repeat": "",
+                    "sublist": []
+                },
+                {
+                    "listId": 4,
+                    "finished": true,
+                    "title": "完成作业",
+                    "desc": "",
+                    "date": "2024-04-04",
+                    "time": "24:00",
                     "alarm": "",
                     "repeat": "",
                     "sublist": []
