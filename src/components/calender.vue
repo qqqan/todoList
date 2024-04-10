@@ -27,8 +27,9 @@
                     <th>六</th>
                 </tr>
                 <tr class="calender-table_days">
-                    <th v-for="(v, i) in days" :key="i" :class="[v.status, { 'active': checkSame(v) === true }]">{{
-                        v.date.date() }}</th>
+                    <th v-for="(v, i) in days" :key="i" :class="[v.status, { 'active': checkSame(v) === true }]"
+                        @click="active.date = v.date; emit('send-date', active.date.format('YY-MM-DD'))">{{
+                            v.date.date() }}</th>
                 </tr>
             </tbody>
         </table>
@@ -45,7 +46,7 @@ interface dateType {
 
 const date = ref(dayjs())
 const active = ref({
-    date: dayjs(),
+    date: date.value,
     status: "active"
 })
 const year = computed(() => { return dayjs(date.value).year() })
@@ -105,11 +106,12 @@ const days = computed(() => {
     return [...getPrevMonthDays(), ...getCurrentMonthDays(), ...getNextMonthDays()]
 })
 
-onMounted(() => {
-    console.log(active.value.date)
-    console.log(active.value.date === date.value)
-})
+// 向父组件传递选定的日期信息
+const emit = defineEmits(['send-date'])
 
+onMounted(() => {
+    emit('send-date', active.value.date.format('YY-MM-DD'))
+})
 </script>
 <style>
 .prev,
@@ -118,7 +120,8 @@ onMounted(() => {
 }
 
 .active {
-    background-color: yellowgreen;
+    background-color: #4772FA;
+    color: #fff;
     border-radius: 1.0714rem;
 }
 
@@ -161,6 +164,10 @@ onMounted(() => {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
+
+        th:hover {
+            cursor: pointer;
+        }
     }
 }
 </style>

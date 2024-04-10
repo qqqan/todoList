@@ -1,95 +1,122 @@
 {
-    "users": [
+  "users": [
+    {
+      "id": 1,
+      "phoneNum": "18782494197",
+      "password": "111111"
+    },
+    {
+      "id": 2,
+      "phoneNum": "15198282332",
+      "password": "111111"
+    }
+  ],
+  "userInfo": [
+    {
+      "id": 1,
+      "username": "七安",
+      "avatar": "https: //wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif",
+      "lists": [
         {
-            "userId": 1,
-            "phoneNum": "18782494197",
-            "password": "111111"
+          "listId": 1,
+          "finished": false,
+          "title": "学习前端",
+          "desc": "html css javascript",
+          "date": "2024-04-07",
+          "time": "24:00",
+          "alarm": "提前1小时",
+          "repeat": "每天",
+          "sublist": [
+            {
+              "sublistId": "1-1",
+              "finished": true,
+              "title": "学习html",
+              "date": "2024-04-07",
+              "time": "24:00"
+            },
+            {
+              "sublistId": "1-2",
+              "finished": true,
+              "title": "学习css",
+              "date": "2024-04-07",
+              "time": "24:00"
+            },
+            {
+              "sublistId": "1-3",
+              "finished": false,
+              "title": "学习javascript",
+              "date": "2024-04-07",
+              "time": "24:00"
+            }
+          ]
         },
         {
-            "userId": 2,
-            "phoneNum": "15198282332",
-            "password": "111111"
-        }
-    ],
-    "userInfo": [
-        {
-            "userId": 1,
-            "username": "七安",
-            "avatar": "https: //wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif",
-            "lists": [
-                {
-                    "listId": 1,
-                    "finished": false,
-                    "title": "学习前端",
-                    "desc": "html css javascript",
-                    "date": "2024-04-07",
-                    "time": "24:00",
-                    "alarm": "提前1小时",
-                    "repeat": "每天",
-                    "sublist": [
-                        {
-                            "sublistId": "1-1",
-                            "finished": true,
-                            "title": "学习html",
-                            "date": "2024-04-07",
-                            "time": "24:00"
-                        },
-                        {
-                            "sublistId": "1-2",
-                            "finished": true,
-                            "title": "学习css",
-                            "date": "2024-04-07",
-                            "time": "24:00"
-                        },
-                        {
-                            "sublistId": "1-3",
-                            "finished": false,
-                            "title": "学习javascript",
-                            "date": "2024-04-07",
-                            "time": "24:00"
-                        }
-                    ]
-                },
-                {
-                    "listId": 2,
-                    "finished": true,
-                    "title": "饥荒攻略",
-                    "desc": "",
-                    "date": "2024-04-07",
-                    "time": "24:00",
-                    "alarm": "",
-                    "repeat": "",
-                    "sublist": []
-                },
-                {
-                    "listId": 3,
-                    "finished": false,
-                    "title": "种地",
-                    "desc": "回家帮忙种地",
-                    "date": "2024-04-04",
-                    "time": "24:00",
-                    "alarm": "",
-                    "repeat": "",
-                    "sublist": []
-                },
-                {
-                    "listId": 4,
-                    "finished": true,
-                    "title": "完成作业",
-                    "desc": "",
-                    "date": "2024-04-04",
-                    "time": "24:00",
-                    "alarm": "",
-                    "repeat": "",
-                    "sublist": []
-                }
-            ]
+          "listId": 2,
+          "finished": true,
+          "title": "饥荒攻略",
+          "desc": "",
+          "date": "2024-04-07",
+          "time": "24:00",
+          "alarm": "",
+          "repeat": "",
+          "sublist": []
         },
         {
-            "userId": 2,
-            "username": "二孬",
-            "avatar": "https: //wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif",
-            "lists": []
+          "listId": 3,
+          "finished": false,
+          "title": "种地",
+          "desc": "回家帮忙种地",
+          "date": "2024-04-04",
+          "time": "24:00",
+          "alarm": "",
+          "repeat": "",
+          "sublist": []
+        },
+        {
+          "listId": 4,
+          "finished": true,
+          "title": "完成作业",
+          "desc": "",
+          "date": "2024-04-04",
+          "time": "24:00",
+          "alarm": "",
+          "repeat": "",
+          "sublist": []
         }
-    ]
+      ]
+    },
+    {
+      "id": 2,
+      "username": "二孬",
+      "avatar": "https: //wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif",
+      "lists": []
+    },
+    {
+      "id": "173b",
+      "newTask": {
+        "__v_isShallow": false,
+        "__v_isRef": true,
+        "_rawValue": {
+          "finished": false,
+          "title": "",
+          "desc": "",
+          "date": "24-04-10",
+          "time": "",
+          "alarm": "",
+          "repeat": "",
+          "sublist": []
+        },
+        "_value": {
+          "finished": false,
+          "title": "",
+          "desc": "",
+          "date": "24-04-10",
+          "time": "",
+          "alarm": "",
+          "repeat": "",
+          "sublist": []
+        }
+      }
+    }
+  ]
 }

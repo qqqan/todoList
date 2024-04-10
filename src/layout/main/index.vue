@@ -10,7 +10,7 @@
             <div class="main-add">
                 <el-input v-model="title" placeholder="+添加任务">
                     <template #suffix>
-                        <Selector />
+                        <Selector @send-info="saveInfo" />
                     </template>
                 </el-input>
             </div>
@@ -43,6 +43,10 @@
                     <Task v-for="(list, index) in lisFinished.data" :key="index" :list="list" @click="showInfo(list)" />
                 </div>
             </div>
+
+            <div class="test">
+                <button @click="getInfo">GET</button>
+            </div>
         </div>
         <div class="slider">
             <Slider :currentList="currentList"></Slider>
@@ -58,10 +62,20 @@ import { ref, reactive, onMounted, toRefs, toRef } from 'vue'
 import Task from '@/components/task.vue'
 import request from '@/utils/request';
 import type { listsType, userInfoType, listType } from '@/api/user/type'
+import axios from 'axios';
+
+
+
+interface timeInfoType {
+    date: string,
+    time: string,
+    alarm: string,
+    repeat: string,
+}
 
 let showDetail = ref(false)
 let userInfo = ref<userInfoType>({
-    userId: 0,
+    id: 0,
     username: "",
     avatar: "",
     lists: []
@@ -74,7 +88,7 @@ let lisFinished = ref<listsType>({ data: [] })  // 今天已完成
 let lisUsed = ref<listsType>({ data: [] })  // 过去未完成
 let lisUsedFinished = ref<listsType>({ data: [] })
 // 分别划分任务为已过期、今天、已完成、过去已完成
-function divideTask(lists: listsType) {
+function divideTask() {
     let currentDate = new Date()
     lists.value.data.forEach(function (item) {
         let date = new Date(item.date + "T" + item.time + ":00")
@@ -93,7 +107,7 @@ function getUserInfo() {
         userInfo.value = response[0]
         avatar.value = userInfo.value.avatar
         lists.value.data = userInfo.value.lists
-        divideTask(lists)
+        divideTask()
     })
 }
 
@@ -109,16 +123,46 @@ let currentList = ref<listType>({
     alarm: "准时",
     repeat: '无',
 })
+
 function showInfo(list: listType) {
     currentList.value = lists.value.data.find(item => item.listId === list.listId)
 }
 
 onMounted(() => {
-    console.log('挂载完毕')
     getUserInfo()
 })
 
+const newTask = ref({
+    finished: false,
+    title: "",
+    desc: "",
+    date: "",
+    time: "",
+    alarm: "",
+    repeat: "",
+    sublist: []
+})
 
+function saveInfo(value: timeInfoType) {
+    console.log("Upperdate", value)
+    newTask.value.date = value.date
+    newTask.value.time = value.time
+    newTask.value.alarm = value.alarm
+    newTask.value.repeat = value.repeat
+
+}
+
+function getInfo() {
+    axios({
+        method: 'POST',
+        url: "http://localhost:3000/userInfo?userId=1",
+        data: {
+            newTask
+        }
+    }).then(response => {
+        console.log(response)
+    })
+}
 </script>
 
 <style scoped lang="scss">

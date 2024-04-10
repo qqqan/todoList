@@ -38,7 +38,7 @@ export interface listsType {
 
 
 export interface userInfoType {
-    userId: number,
+    id: number,
     username: string,
     avatar: string,
     lists: listType[] | []

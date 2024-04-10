@@ -8,6 +8,7 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     Calender: typeof import('./src/components/calender.vue')['default']
+    CustomSelect: typeof import('./src/components/customSelect.vue')['default']
     DetailSelector: typeof import('./src/components/detailSelector/index.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCheckbox: typeof import('element-plus/es')['ElCheckbox']
