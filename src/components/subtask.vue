@@ -1,24 +1,37 @@
 <template>
     <div class="subtask-item">
-        <input type="checkbox" v-model="subtaskList.finished">
-        <input type="text" v-model="subtaskList.title">
+        <input type="checkbox" v-model="subTask.finished">
+        <input type="text" v-model="subTask.title">
         <div class="subtask-item_timer">
             <AlarmClock />
         </div>
         <div class="subtask-item_delete">
-            <Delete />
+            <Delete @click="deleteSubTask()" />
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import type { sublistType } from '@/api/user/type'
+import { inject, ref } from 'vue'
+import type { subTaskType } from '@/api/subTasks/type';
+import { reqDeleteSubTask } from '@/api/subTasks';
 
-const props = defineProps({
-    subtaskList: Object as PropType<sublistType>
-})
+const props = defineProps<{
+    subTask: subTaskType
+}>()
 
+const subTask = ref(props.subTask)
+
+// 删除数据
+const reloadSubTask = inject("reloadSubTask")
+const deleteSubTask = async () => {
+    let request = await reqDeleteSubTask(subTask.value.id)
+    if (request.code === 200) {
+        console.log("子任务删除成功")
+        // 刷新列表
+        reloadSubTask()
+    }
+}
 </script>
 
 <style scoped lang="scss">

@@ -1,36 +1,56 @@
 <template>
     <div class="task-item">
-        <input type="checkbox" v-model="list.finished">
-        <div class="task-item_title">{{ list.title }}</div>
+        <input type="checkbox" v-model="finished">
+        <div class="task-item_title">{{ title }}</div>
         <div class="task-item_timer">
             {{ formattedDate }}
         </div>
         <div class="task-item_delete">
-            <Delete />
+            <Delete @click="deleteTask()" style="cursor: pointer;" />
         </div>
 
     </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, reactive, type PropType } from 'vue'
-import type { listsType } from '@/api/user/type'
+import { ref, computed, reactive, type PropType, inject } from 'vue'
+import type { taskListType } from '@/api/taskLists/type';
+import { reqDeleteTask } from '@/api/taskLists';
+import { useCurrentTaskStore } from '@/stores/modules/tasks';
 
-const props = defineProps({
-    list: Object as PropType<listsType>
-})
+const props = defineProps<{
+    task: taskListType
+}>()
 
-const list = reactive<listsType>(props.list)
+const finished = ref(props.task.finished)
+const title = ref(props.task.title)
+const date = ref(props.task.date)
+
+
 // 修改日期展示模式
 const formattedDate = computed(() => {
-    const date = new Date(list.date);
-
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1; // 月份从0开始，需要加1
-    const day = date.getDate();
+    let formDate = new Date(date.value)
+    console.log(formDate)
+    let year = formDate.getFullYear();
+    let month = formDate.getMonth() + 1; // 月份从0开始，需要加1
+    let day = formDate.getDate();
 
     return year + "年" + month + "月" + day + "日";
 })
+
+// 删除任务
+const reload = inject('reload')
+const currentTaskStore = useCurrentTaskStore()
+const deleteTask = async () => {
+    let result = await reqDeleteTask(props.task.id)
+    if (result.code === 200) {
+        console.log("删除任务成功")
+        // 重置currentTask的内容，调整slider
+        currentTaskStore.resetCurrentTask()
+    }
+    // 刷新页面
+    reload()
+}
 </script>
 
 <style scoped lang="scss">

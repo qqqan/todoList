@@ -4,7 +4,7 @@
             <div class="slot-prev">
                 <slot name="prev"></slot>
             </div>
-            {{ selectedOption || placeholder }}
+            <h1 :class="{ selected: selectedOption !== '' }">{{ selectedOption || placeholder }}</h1>
             <el-icon>
                 <ArrowDown v-if="isOpen" />
                 <ArrowRight v-else />
@@ -24,7 +24,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-defineProps({
+const props = defineProps({
     options: {
         type: Array,
         required: true
@@ -32,17 +32,21 @@ defineProps({
     placeholder: {
         type: String,
         default: 'Select an option'
+    },
+    selected: {
+        type: String,
+        default: ""
     }
 })
 
 const isOpen = ref(false)
-const selectedOption = ref(null)
+const selectedOption = ref(props.selected)
 
 function toggleDropdown() {
     isOpen.value = !isOpen.value
 }
 
-function selectOption(option) {
+function selectOption(option: any) {
     selectedOption.value = option
     isOpen.value = false
 }
@@ -52,9 +56,14 @@ const emit = defineEmits(['send-data'])
 </script>
 
 <style scoped lang="scss">
+.selected {
+    color: #4772FA;
+}
+
 .custom-select {
     width: inherit;
     position: relative;
+    margin: 1.0714rem 0;
 }
 
 .selected-option {
@@ -90,6 +99,8 @@ const emit = defineEmits(['send-data'])
     overflow: auto;
 
     li {
+        height: 2.1429rem;
+        line-height: 2.1429rem;
         padding-left: .7143rem;
         display: flex;
         flex-direction: column;

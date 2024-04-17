@@ -1,14 +1,16 @@
 // 二次封装axios
 import axios from "axios";
 import { ElMessage } from "element-plus";
-import type { id } from "element-plus/es/locales.mjs";
 const request = axios.create({
-    baseURL: 'http://localhost:3000',
+    baseURL: 'http://localhost:3000/api/',
+    headers: {
+        "Content-type": "application/json"
+    },
     timeout: 5000,
 })
-request.defaults.params = { id: 1 }
 
 // 请求拦截器
+
 
 // 响应拦截器
 request.interceptors.response.use(

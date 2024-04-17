@@ -26,6 +26,7 @@ declare module 'vue' {
     Subtask: typeof import('./src/components/subtask.vue')['default']
     Task: typeof import('./src/components/task.vue')['default']
     Test: typeof import('./src/components/test.vue')['default']
+    Textarea: typeof import('./src/components/textarea.vue')['default']
     Time: typeof import('./src/components/time.vue')['default']
   }
 }

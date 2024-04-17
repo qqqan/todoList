@@ -131,7 +131,6 @@ onMounted(() => {
 
 .calender-container {
     width: 100%;
-    background-color: #fff;
 
     .el-icon {
         cursor: pointer;
@@ -140,7 +139,7 @@ onMounted(() => {
 
 .calender-header {
     width: 100%;
-    margin-top: .7143rem;
+    margin: 1.0714rem auto;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -164,6 +163,13 @@ onMounted(() => {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
+
+        th {
+            width: 2.1429rem;
+            height: 2.1429rem;
+            line-height: 2.1429rem;
+            text-align: center;
+        }
 
         th:hover {
             cursor: pointer;
