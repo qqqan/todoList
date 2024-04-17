@@ -184,3 +184,15 @@ pre {
     font-family: monospace, monospace;
     font-size: 1em;
 }
+
+a {
+    text-decoration: none;
+    /* 移除下划线 */
+    color: inherit;
+    /* 继承父元素颜色 */
+    cursor: pointer;
+}
+
+button{
+    cursor: pointer;
+}

@@ -10,9 +10,17 @@ const router = createRouter({
     name: 'login'
   },
   {
-    path: '/home',
+    path: '/',
     component: () => import('@/views/home/index.vue'),
-    name: 'home'
+    name: 'layout',
+    redirect: '/home',
+    children: [
+      {
+        path: '/home',
+        component: () => import('@/views/home/index.vue'),
+        name: 'home',
+      }
+    ]
   }, {
     // 日历
     path: '/calender',

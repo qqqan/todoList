@@ -14,7 +14,8 @@ export interface addTaskDataType {
     time: string,
     alarm: string,
     repeat: string,
-    userId: number
+    userId: number,
+    finishedDate: string,
 }
 
 // 获取任务信息返回数据类型
@@ -27,7 +28,8 @@ export interface taskListType {
     time?: string,
     alarm?: string,
     repeat?: string,
-    userId: number
+    userId: number,
+    finishedDate: string
 }
 
 export interface taskListsType {
@@ -46,4 +48,10 @@ export interface taskListResponseData extends dataType {
 }
 
 
+
+export interface reqCalenderDataType {
+    userId: number,
+    year: number,
+    month: number
+}
 

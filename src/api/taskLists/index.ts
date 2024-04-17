@@ -1,6 +1,6 @@
 // 任务相关数据接口
 import request from "@/utils/request";
-import type { addTaskDataType, taskListsResponseData, taskListType, taskListResponseData } from "./type";
+import type { addTaskDataType, taskListsResponseData, taskListType, taskListResponseData, reqCalenderDataType } from "./type";
 
 
 // 枚举地址
@@ -9,7 +9,8 @@ enum API {
     GETALL_URL = '/tasklists',
     DETAIL_URL = '/tasklists/detail',
     DELETE_URL = '/tasklists/delete',
-    UPDATE_URL = '/tasklists/update'
+    UPDATE_URL = '/tasklists/update',
+    CALENDER_URL = '/tasklists/calender'
 }
 
 // 添加
@@ -30,3 +31,7 @@ export const reqDeleteTask = (id: number) => request.delete<any, any>(API.DELETE
 
 // 修改指定id数据
 export const reqUpdateTask = (data: taskListType) => request.patch<any, any>(API.UPDATE_URL, data)
+
+
+// 获取calender页所需数据
+export const reqCalender = (data: reqCalenderDataType) => request.post<any, any>(API.CALENDER_URL, data)
