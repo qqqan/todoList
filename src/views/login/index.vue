@@ -1,6 +1,6 @@
 <template>
     <div class="login">
-        <div class="login-bg"></div>
+        <div class="login-bg"><img src="@/assets/images/bg.svg" alt=""></div>
         <div class="login-container">
             <div class="login-title">Done List</div>
             <el-form class="login-form" :model="loginForm" :rules="rules">
@@ -56,6 +56,12 @@ const rules = {
     width: 60%;
     height: 100vh;
     background-color: #E3ECFF;
+    display: flex;
+    justify-content: center;
+
+    img {
+        width: 60%;
+    }
 }
 
 .login-container {

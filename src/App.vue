@@ -1,7 +1,7 @@
 <template>
     <div>
         <!-- <router-view v-if="isRouterActive"></router-view> -->
-        <Layout></Layout>
+        <router-view></router-view>
     </div>
 </template>
 
