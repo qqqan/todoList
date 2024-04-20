@@ -34,7 +34,9 @@
                 <!-- 刷新 -->
                 <Refresh @click="refresh()" style="cursor: pointer;" />
                 <!-- 退出 -->
-                <MoreFilled style="margin-top: 1.0714rem;" />
+                <router-link to="/setting">
+                    <MoreFilled style="margin-top: 1.0714rem;" />
+                </router-link>
             </div>
         </div>
         <div class="layout-main" v-if="isRouterActive">
@@ -80,21 +82,22 @@ function refresh() {
     display: flex;
     flex-direction: column;
     align-items: center;
-    color: #6E6E6E;
-    background-color: #F6F9FF;
+    color: var(--header-text-color);
+    background-color: var(--header-bg-color);
 
 }
 
 .layout-main {
     flex: 1;
     height: 100vh;
-    background-color: #fff;
+    background-color: var(--bg-color);
+    color: var(--text-color)
 }
 
 .header-avatar {
     width: 2.1429rem;
     height: 2.1429rem;
-    background-color: white;
+    background-color: var(--bg-color);
     margin-top: 1.7857rem;
 
     img {
@@ -119,51 +122,4 @@ function refresh() {
     width: 1.7857rem;
 
 }
-
-// .layout-container {
-//     display: flex;
-//     flex-wrap: nowrap;
-// }
-
-// .menu {
-//     position: relative;
-//     width: 3.2143rem;
-//     height: 100vh;
-//     display: flex;
-//     flex-direction: column;
-//     align-items: center;
-//     color: #6E6E6E;
-// }
-
-// .header-avatar {
-//     width: 2.1429rem;
-//     height: 2.1429rem;
-//     background-color: white;
-//     margin-top: 1.7857rem;
-
-//     img {
-//         width: 100%;
-//         height: 100%;
-//     }
-// }
-
-// .header-menu {
-//     width: 1.7857rem;
-
-//     nav {
-//         margin-top: 1.4286rem;
-//     }
-
-// }
-
-
-// .header-more {
-//     position: absolute;
-//     bottom: 1.7857rem;
-//     width: 1.7857rem;
-
-// }
-
-// .submenu {
-//     border-right: 1px solid #C3C3C3;
-// }</style>
+</style>

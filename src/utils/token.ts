@@ -12,5 +12,5 @@ export const GET_TOKEN = () => {
 
 // 本地存储删除数据
 export const REMOVE_TOKEN = () => {
-    localStorage.removeItem('TOEKN')
+    localStorage.removeItem('TOKEN')
 }

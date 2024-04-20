@@ -120,7 +120,7 @@ function confirm() {
 }
 
 .showDate {
-    color: #4772FA;
+    color: var(--main-color);
 }
 
 .selector-container {
@@ -128,7 +128,7 @@ function confirm() {
     top: 1.4286rem;
     left: -50%;
     padding: 1.0714rem;
-    background-color: #fff;
+    background-color: var(--bg-color);
     box-shadow: .3rem .3rem 1rem rgba(0, 0, 0, 0.5);
     z-index: 999;
 }
@@ -139,7 +139,7 @@ function confirm() {
     line-height: 2rem;
     text-align: center;
     border-radius: .3571rem;
-    background-color: #F3F3F3;
+    background-color: var(--input-bg-color);
     margin: .3571rem auto;
 }
 
@@ -153,8 +153,8 @@ button {
     height: 2.1429rem;
     border-radius: .3571rem;
     border: 0;
-    background-color: #4772FA;
-    color: #fff;
+    background-color: var(--main-color);
+    color: var(--bg-color);
     margin-top: .3571rem;
     cursor: pointer;
 }

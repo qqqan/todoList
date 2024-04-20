@@ -20,7 +20,7 @@ import Subnav from '@/components/subnav.vue'
 .layout-menu {
     width: 17.8571rem;
     height: 100vh;
-    background-color: #fff;
-    border-right: 1px solid #C3C3C3;
+    background-color: var(--bg-color);
+    border-right: 1px solid var(--border-color);
 }
 </style>

@@ -46,18 +46,29 @@ input[type=checkbox] {
     margin-right: .7143rem;
     width: 1.1429rem;
     height: 1.1429rem;
+    background-color: var(--input-bg-color);
+    color: var(--input-bg-color);
+}
+
+input[type=checkbox]::after {
+    background-color: var(--main-color);
+}
+
+input[type=checkbox]:checked {
+    background-color: var(--main-color);
 }
 
 input[type=text] {
     width: 21.4286rem;
     border: 0;
-    border-bottom: 1px solid #C3C3C3;
+    border-bottom: 1px solid var(--border-color);
     font-size: 1.1429rem;
     height: 2.8571rem;
+    background-color: var(--bg-color);
 }
 
 input[type=text]:focus {
-    border-bottom: 2px solid #3F6DE6;
+    border-bottom: 2px solid var(--main-color);
 }
 
 .subtask-item_timer {

@@ -101,8 +101,8 @@ function saveData() {
 .slider-container {
     width: 28.5714rem;
     height: 100vh;
-    color: #111;
-    border-left: 1px solid #C3C3C3;
+    color: var(--text-color);
+    border-left: 1px solid var(--border-color);
 }
 
 .slider-container_type1 {
@@ -116,7 +116,7 @@ function saveData() {
     height: 4.2857rem;
     display: flex;
     align-items: center;
-    border-bottom: 1px solid #C3C3C3;
+    border-bottom: 1px solid var(--border-color);
 
     .checkbox {
         margin: 0 1.4286rem;
@@ -126,14 +126,14 @@ function saveData() {
 }
 
 .slider-info {
-    border-bottom: 1px solid #C3C3C3;
+    border-bottom: 1px solid var(--border-color);
     padding: .7143rem .7143rem 0;
-    color: #111;
+    color: var(--text-color);
 
     input {
         width: 100%;
         border-radius: .3571rem;
-        background-color: #fff;
+        background-color: var(--bg-color);
         border: 0;
     }
 
@@ -159,8 +159,8 @@ function saveData() {
 
     .slider-addTask {
         margin-top: .7143rem;
-        color: #3F6DE6;
-        background-color: #fff;
+        color: var(--main-color);
+        background-color: var(--bg-color);
         border: 0;
     }
 
@@ -171,8 +171,8 @@ function saveData() {
         width: 4.2857rem;
         height: 2.1429rem;
         font-size: 1.1429rem;
-        background-color: #3F6DE6;
-        color: #fff;
+        background-color: var(--main-color);
+        color: var(--bg-color);
         border: 0;
         border-radius: .3571rem;
     }

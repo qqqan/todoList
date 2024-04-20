@@ -51,5 +51,7 @@ textarea {
     vertical-align: bottom;
     resize: none;
     overflow: hidden;
+    background-color: var(--input-bg-color);
+    border-radius: .3571rem;
 }
 </style>

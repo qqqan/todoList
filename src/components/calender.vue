@@ -116,17 +116,17 @@ onMounted(() => {
 <style>
 .prev,
 .next {
-    color: #C0C0C0;
+    color: var(--border-color);
 }
 
 .active {
-    background-color: #4772FA;
+    background-color: var(--main-color);
     color: #fff;
     border-radius: 1.0714rem;
 }
 
 .now {
-    background-color: yellow;
+    background-color: var(--active-color);
 }
 
 .calender-container {

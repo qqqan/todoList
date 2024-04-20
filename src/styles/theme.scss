@@ -1,0 +1,32 @@
+:root[theme='base']{
+    --header-bg-color:#F6F9FF;
+    --header-text-color:#6E6E6E;
+    --bg-color:#fff;
+    --text-color:#111;
+    --input-bg-color:#F3F3F3;
+    --border-color: #C3C3C3;
+    --main-color:#3F6DE6;
+    --active-color:yellow;
+}
+
+:root[theme='dark']{
+    --header-bg-color: #666;
+    --header-text-color: rgb(215, 225, 226);
+    --bg-color: #111;
+    --text-color:#fff;
+    --input-bg-color: #fff8eb;
+    --border-color: #C3C3C3;
+    --main-color: rgb(50, 122, 185);
+    --active-color: yellow;
+}
+
+:root[theme='sweet']{
+    --header-bg-color: rgb(132,23,44);
+    --header-text-color: #fff;
+    --bg-color: rgb(250,234,226);
+    --text-color:rgb(132, 23, 44);
+    --input-bg-color: #fff8eb;
+    --border-color: #C3C3C3;
+    --main-color: rgb(50,122,185);
+    --active-color: yellow;
+}

@@ -62,7 +62,7 @@ const deleteTask = async () => {
 }
 
 .task-item:hover {
-    background-color: #F9F9F9;
+    background-color: var(--input-bg-color);
 }
 
 
@@ -81,7 +81,7 @@ input[type=checkbox] {
 
 .task-item_timer {
     margin-right: .7143rem;
-    color: #3F6DE6;
+    color: var(--main-color);
     font-size: .8571rem;
 
 }

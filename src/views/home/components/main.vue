@@ -170,12 +170,12 @@ onMounted(() => {
             height: 2.8571rem;
             padding: 1.4286rem;
             border-radius: .3571rem;
-            background-color: #F3F4F7;
+            background-color: var(--input-bg-color);
             border: 0;
             --el-component-size: 14px;
 
             ::v-deep .el-input__wrapper {
-                background-color: #F3F4F7;
+                background-color: var(--input-bg-color);
                 box-shadow: none;
             }
 
@@ -190,7 +190,7 @@ onMounted(() => {
 
         button {
             width: 100%;
-            background-color: #fff;
+            background-color: var(--bg-color);
             height: 2.1429rem;
             display: flex;
             align-items: center;

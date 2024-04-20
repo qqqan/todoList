@@ -35,8 +35,12 @@ const router = createRouter({
         path: '/charts',
         component: () => import('@/views/charts/index.vue'),
         name: 'Charts'
+      }, {
+        // 设置
+        path: '/setting',
+        component: () => import('@/views/setting/index.vue'),
+        name: 'Setting'
       }
-
     ]
   },
 

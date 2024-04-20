@@ -57,7 +57,7 @@ const emit = defineEmits(['send-data'])
 
 <style scoped lang="scss">
 .selected {
-    color: #4772FA;
+    color: var(--main-color);
 }
 
 .custom-select {
@@ -111,12 +111,12 @@ const emit = defineEmits(['send-data'])
     }
 
     li:hover {
-        background-color: #F8F8F8;
+        background-color: var(--input-bg-color);
     }
 }
 
 .active {
-    background-color: #fff;
-    color: #4772FA;
+    background-color: var(--input-bg-color);
+    color: var(--main-color);
 }
 </style>
