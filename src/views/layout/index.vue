@@ -3,7 +3,7 @@
         <div class="layout-header">
             <!-- 用户头像 -->
             <div class="header-avatar">
-                <img src="" alt="">
+                <img :src="userStore.avatar" alt="">
             </div>
             <!-- 导航栏 -->
             <div class="header-menu">
@@ -49,6 +49,8 @@
 import { inject } from 'vue';
 // 实现无感刷新页面
 import { provide, nextTick, ref } from 'vue'
+import { useUserStore } from '@/stores/modules/user';
+const userStore = useUserStore()
 const isRouterActive = ref(true)
 provide('reload', () => {
     isRouterActive.value = false

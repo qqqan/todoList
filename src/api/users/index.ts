@@ -6,7 +6,8 @@ import type { reqUserForm, userInfoResponseData } from './type'
 enum API {
     REGISTER_URL = '/users',
     LOGIN_URL = '/users/login',
-    LOGOUT_URL = '/users/logout'
+    LOGOUT_URL = '/users/logout',
+    USERINFO_URL = '/users'
 }
 
 // 注册接口
@@ -19,3 +20,4 @@ export const reqLogin = (data: reqUserForm) => request.post<any, userInfoRespons
 // 退出登录传入token即可，token本来应该在请求拦截器中自动添加，此时还没设置
 export const reqLogout = () => request.post<any, any>(API.LOGOUT_URL)
 
+export const reqUserInfo = () => request.get<any, any>(API.USERINFO_URL)

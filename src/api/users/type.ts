@@ -14,7 +14,7 @@ export interface dataType {
 
 export interface userInfoType {
     id: number,
-    phoneNumber: string,
+    phoneNum: string,
     password: string,
     avatar: string
 }

@@ -3,15 +3,15 @@
         <div class="login-bg"><img src="@/assets/images/bg.svg" alt=""></div>
         <div class="login-container">
             <div class="login-title">Done List</div>
-            <el-form class="login-form" :model="loginForm" :rules="rules">
+            <el-form class="login-form" :model="loginForm" :rules="rules" ref="loginForms">
                 <el-form-item prop="phoneNum">
                     <el-input v-model="loginForm.phoneNum" placeholder="手机号"></el-input>
                 </el-form-item>
                 <el-form-item prop="pass">
-                    <el-input v-model="loginForm.pass" type="password" placeholder="密码"></el-input>
+                    <el-input v-model="loginForm.password" type="password" placeholder="密码"></el-input>
                 </el-form-item>
                 <el-form-item>
-                    <el-button>登录</el-button>
+                    <el-button @click="login()">登录</el-button>
                 </el-form-item>
             </el-form>
         </div>
@@ -20,9 +20,15 @@
 
 <script lang="ts" setup>
 import { ref, reactive } from 'vue'
-const loginForm = reactive({
+import type { reqUserForm } from '@/api/users/type';
+import { useRouter } from 'vue-router';
+import { useUserStore } from '@/stores/modules/user';
+const $router = useRouter()
+const userStore = useUserStore()
+let loginForms = ref()  // 获取el-form组件
+const loginForm = reactive<reqUserForm>({
     phoneNum: '',
-    pass: ''
+    password: ''
 })
 
 const validatorPhoneNumber = (rule: any, value: any, callback: any) => {
@@ -42,7 +48,20 @@ const validatorPassword = (rule: any, value: any, callback: any) => {
 }
 const rules = {
     phoneNum: [{ trigger: 'change', validator: validatorPhoneNumber }],
-    pass: [{ trigger: 'change', validator: validatorPassword }]
+    password: [{ trigger: 'change', validator: validatorPassword }]
+}
+
+const login = async () => {
+    // 确保全部表单校验通过再发请求
+    await loginForms.value.validate()
+    console.log('表单校验成功')
+    try {
+        await userStore.userLogin(loginForm)
+        console.log("登录成功")
+        $router.push({ path: '/layout' })
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 </script>
