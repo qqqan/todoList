@@ -158,6 +158,7 @@ function saveData() {
     overflow: auto;
 
     .slider-addTask {
+        position: relative;
         margin-top: .7143rem;
         color: var(--main-color);
         background-color: var(--bg-color);

@@ -12,7 +12,7 @@
 const props = defineProps(['title', 'count'])
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 .subnav-item {
     height: 2.8571rem;
     display: flex;

@@ -117,6 +117,7 @@ function confirm() {
 <style lang="scss" scoped>
 .selector {
     position: relative;
+    z-index: 10;
 }
 
 .showDate {
@@ -125,12 +126,13 @@ function confirm() {
 
 .selector-container {
     position: absolute;
+    width: 18.5714rem;
     top: 1.4286rem;
     left: -50%;
     padding: 1.0714rem;
     background-color: var(--bg-color);
     box-shadow: .3rem .3rem 1rem rgba(0, 0, 0, 0.5);
-    z-index: 999;
+    z-index: 10;
 }
 
 .selector-title {

@@ -7,7 +7,7 @@
             <el-icon>
                 <ArrowLeft @click="() => { date = date.subtract(1, 'month') }" />
             </el-icon>
-            <span>{{ year }}年{{ month + 1 }}月</span>
+            {{ year }}年{{ month + 1 }}月
             <el-icon>
                 <ArrowRight @click="() => { date = date.add(1, 'month') }" />
             </el-icon>
@@ -27,9 +27,11 @@
                     <th>六</th>
                 </tr>
                 <tr class="calender-table_days">
-                    <th v-for="(v, i) in days" :key="i" :class="[v.status, { 'active': checkSame(v) === true }]"
-                        @click="active.date = v.date; emit('send-date', active.date.format('YY-MM-DD'))">{{
-                            v.date.date() }}</th>
+                    <th v-for="(v, i) in days" :key="i" :class="v.status"
+                        @click="active.date = v.date; emit('send-date', active.date.format('YY-MM-DD'))">
+                        <div :class="{ 'active': checkSame(v) === true }">{{ v.date.date() }}</div>
+                        <slot></slot>
+                    </th>
                 </tr>
             </tbody>
         </table>
@@ -120,6 +122,9 @@ onMounted(() => {
 }
 
 .active {
+    width: 1.4286rem;
+    height: 1.4286rem;
+    line-height: 1.4286rem;
     background-color: var(--main-color);
     color: #fff;
     border-radius: 1.0714rem;
@@ -131,44 +136,59 @@ onMounted(() => {
 
 .calender-container {
     width: 100%;
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
 
     .el-icon {
         cursor: pointer;
     }
 }
 
+
 .calender-header {
     width: 100%;
+    font-size: 1.1429rem;
     margin: 1.0714rem auto;
     display: flex;
+    flex-wrap: nowrap;
     justify-content: center;
-    align-items: center;
 
     .el-icon {
-        width: 1.4286rem;
+        width: 1.7857rem;
     }
+
 }
 
 .calender-table {
-    th {
-        width: 2.1429rem;
-    }
+    width: 100%;
 
     .calender-table_weeks {
-        display: flex;
-        justify-content: center;
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        grid-template-rows: 2.1429rem;
+        border-bottom: .0714rem solid #ccc;
+
+        th {
+            line-height: 2.1429rem;
+        }
+
     }
 
     .calender-table_days {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        border-collapse: collapse;
+
 
         th {
-            width: 2.1429rem;
-            height: 2.1429rem;
-            line-height: 2.1429rem;
-            text-align: center;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: .3571rem;
+            min-height: 2.1429rem;
         }
 
         th:hover {

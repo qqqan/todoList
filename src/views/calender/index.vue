@@ -1,5 +1,5 @@
 <template>
-    <div class="calender-container">
+    <!-- <div class="calender-container">
         <div class="calender-header">
             <el-icon>
                 <DArrowLeft @click="() => { date = date.subtract(1, 'year') }" />
@@ -38,6 +38,11 @@
                 </tbody>
             </table>
         </div>
+    </div> -->
+    <div class="container">
+        <Calender>
+            <div class="calender-table_lists">测试</div>
+        </Calender>
     </div>
 </template>
 
@@ -45,6 +50,7 @@
 import dayjs from 'dayjs'
 import { defineProps, ref, computed, inject, defineEmits, onMounted, reactive } from 'vue';
 import { reqCalender } from '@/api/taskLists';
+import Calender from '@/components/calender.vue'
 interface dateType {
     date: dayjs.Dayjs,
     status: ""
@@ -141,93 +147,50 @@ onMounted(() => {
 
 
 </script>
-<style>
-.prev,
-.next {
-    color: #C0C0C0;
-}
-
-.active {
-    background-color: #4772FA;
-    color: #fff;
-    border-radius: 1.0714rem;
-}
-
-.now {
-    background-color: yellow;
-}
-
-.calender-container {
-    width: 100%;
+<style scoped lang="scss">
+.container {
     height: 100vh;
-    display: flex;
-    flex-direction: column;
 
-    .el-icon {
-        cursor: pointer;
+    :deep(.calender-container) {
+        height: 100vh;
     }
-}
 
+    :deep(.calender-header) {
+        height: 2.1429rem;
+        font-size: 1.7143rem;
 
-.calender-header {
-    width: 100%;
-    height: 30px;
-    font-size: 1.7143rem;
-    margin: 1.0714rem auto;
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: center;
-
-    .el-icon {
-        width: 2.1429rem;
+        .el-icon {
+            width: 2.1429rem;
+        }
     }
-}
 
-.calender-table {
-    width: 100%;
 
-    .calender-table_weeks {
-        width: 100%;
+    :deep(.calender-table_weeks) {
         height: 2.8571rem;
-        display: grid;
         grid-template-columns: repeat(7, minmax(14.2857rem, 1fr));
         grid-template-rows: 2.8571rem;
-        border-bottom: .0714rem solid #ccc;
 
         th {
             font-size: 1.2857rem;
-            line-height: 2.8571rem;
         }
-
     }
 
-    .calender-table_days {
+    :deep(.calender-table_days) {
         width: 100%;
         height: calc(100vh - 7.1429rem);
-        display: grid;
-        grid-template-columns: repeat(7, 1fr);
-        border-collapse: collapse;
-
 
         th {
             min-height: 7.1429rem;
-            cursor: pointer;
             border-right: 1px solid #ccc;
             border-bottom: 1px solid #ccc;
-            display: flex;
-            flex-direction: column;
             align-items: start;
-            padding: .3571rem;
             overflow: auto;
+            justify-content: flex-start;
 
             .calender-table_list {
                 height: 1.7857rem;
                 line-height: 1.7857rem;
             }
-        }
-
-        th:hover {
-            cursor: pointer;
         }
     }
 }

@@ -1,14 +1,14 @@
 <template>
     <div class="layout-menu">
-        <Subnav title="今天" count="2" :class="{ active: isActive === 1 ? true : false }"
+        <Subnav title="今天" count="2" :class="{ submenu_selected: isActive === 1 ? true : false }"
             @click="currentTaskStore.changeCategory('today'), isActive = 1">
             <Notebook style="width: inherit;" />
         </Subnav>
-        <Subnav title="最近七天" count="10" :class="{ active: isActive === 2 ? true : false }"
+        <Subnav title="最近七天" count="10" :class="{ submenu_selected: isActive === 2 ? true : false }"
             @click="currentTaskStore.changeCategory('thisDays'), isActive = 2">
             <Tickets style="width: inherit;" />
         </Subnav>
-        <Subnav title="全部" count="20" :class="{ active: isActive === 3 ? true : false }"
+        <Subnav title="全部" count="20" :class="{ submenu_selected: isActive === 3 ? true : false }"
             @click="currentTaskStore.changeCategory('all'), isActive = 3">
             <FolderChecked style="width: inherit;" />
         </Subnav>
@@ -24,7 +24,7 @@ const currentTaskStore = useCurrentTaskStore()
 </script>
 
 <style scoped lang="scss">
-.active {
+.submenu_selected {
     background-color: var(--input-bg-color);
     color: var(--text-color);
     font-weight: 700;
