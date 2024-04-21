@@ -4,34 +4,24 @@
             <slot></slot>
         </el-icon>
         <h4>{{ title }}</h4>
-        <p>{{ count }}</p>
+        <!-- <p>{{ count }}</p> -->
     </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-defineProps(['title', 'count'])
-
+const props = defineProps(['title', 'count'])
 </script>
 
 <style scoped lang="scss">
 .subnav-item {
-    position: relative;
-    width: 17.8571rem;
-    padding: 1.4286rem .7143rem 0;
+    height: 2.8571rem;
     display: flex;
     align-items: center;
+    padding: 0 1.4286rem;
 
     h4 {
-        padding-left: .7143rem;
+        margin-left: .7143rem;
         font-size: 1.1429rem;
     }
-
-    p {
-        position: absolute;
-        right: 1.4286rem;
-        float: right;
-    }
-
 }
 </style>

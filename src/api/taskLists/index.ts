@@ -1,6 +1,7 @@
 // 任务相关数据接口
 import request from "@/utils/request";
 import type { addTaskDataType, taskListsResponseData, taskListType, taskListResponseData, reqCalenderDataType } from "./type";
+import { ca } from "element-plus/es/locales.mjs";
 
 
 // 枚举地址
@@ -18,7 +19,7 @@ export const reqAddTask = (data: addTaskDataType) => request.post<addTaskDataTyp
 
 
 // 获取指定userId下全部任务数据
-export const reqGetAllTask = (userId: number) => request.get<any, taskListsResponseData>(API.GETALL_URL, { params: { userId: userId } })
+export const reqGetAllTask = (userId: number, category: string) => request.get<any, taskListsResponseData>(API.GETALL_URL, { params: { userId: userId, category: category } })
 
 
 // 获取指定id的详情数据

@@ -5,7 +5,7 @@
                 <el-icon :size="24">
                     <Expand />
                 </el-icon>
-                <h1>今天</h1>
+                <h1>{{ submenu.title }}</h1>
             </div>
             <div class="main-add">
                 <el-input v-model="newTaskStore.newTask.title" placeholder="+添加任务" @keyup.enter="saveNewTask()">
@@ -28,7 +28,7 @@
                     <el-icon style="margin-right: .3571rem;">
                         <ArrowRight />
                     </el-icon>
-                    今天
+                    {{ submenu.title }}
                 </button>
                 <div class="taskContainer">
                     <Task v-for="task in lisToday" :key="task.id" :task="task" @click="updateCurrentStore(task)" />
@@ -49,10 +49,11 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import type { addTaskDataType, taskListType, taskListsType, taskListsResponseData } from '@/api/taskLists/type';
 import { reqGetAllTask, reqAddTask } from '@/api/taskLists';
 import { useCurrentTaskStore, useNewTaskStore } from '@/stores/modules/tasks';
+import { storeToRefs } from 'pinia';
 
 const userId = ref(1)  //当前用户id
 let tasklists = ref<taskListType[]>([]) //全部任务信息
@@ -61,11 +62,17 @@ let lisFinished = ref<taskListType[]>([])  // 今天已完成
 let lisUsed = ref<taskListType[]>([])   // 过去未完成
 let lisUsedFinished = ref<taskListType[]>([])
 
-
+// category:all,thisDays,today
 const getAllTasks = async () => {
-    let result: taskListsResponseData = await reqGetAllTask(userId.value)
+    // 清空当前list
+    lisToday.value = []
+    lisFinished.value = []
+    lisUsed.value = []
+    lisUsedFinished.value = []
+    let result: taskListsResponseData = await reqGetAllTask(userId.value, submenu.value.category)
     if (result.code === 200) {
         tasklists.value = result.data
+        console.log(tasklists.value)
     }
     divideTask()
 }
@@ -86,12 +93,12 @@ function divideTask() {
     })
 }
 
-
-
 const currentTaskStore = useCurrentTaskStore()
+const { submenu } = storeToRefs(currentTaskStore)
 function updateCurrentStore(task: taskListType) {
     currentTaskStore.currentTask = task
 }
+
 
 // 新Task相关逻辑
 const newTaskStore = useNewTaskStore()
@@ -132,6 +139,11 @@ const saveNewTask = async () => {
 
 
 onMounted(() => {
+    getAllTasks()
+})
+
+watch(submenu.value, (newValue, oldValue) => {
+    console.log("submenu发生了变化", newValue)
     getAllTasks()
 })
 

@@ -1,8 +1,15 @@
+import { ca } from "element-plus/es/locales.mjs";
 import { defineStore } from "pinia";
 
 export const useCurrentTaskStore = defineStore('currentTask', {
     state() {
         return {
+            submenu: {
+                category: "today",
+                title: '今天',
+                unfold: true
+            },
+
             currentTask: {
                 "id": 0,
                 "finished": false,
@@ -28,6 +35,19 @@ export const useCurrentTaskStore = defineStore('currentTask', {
                 "alarm": "",
                 "repeat": "",
                 "userId": 0
+            }
+        },
+        changeCategory(category: string) {
+            this.submenu.category = category
+            switch (category) {
+                case "today":
+                    this.submenu.title = "今天"
+                    break
+                case "thisDays":
+                    this.submenu.title = "最近七天"
+                    break
+                case "all":
+                    this.submenu.title = "全部"
             }
         }
     },
