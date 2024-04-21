@@ -1,7 +1,7 @@
 <template>
     <div class="task-item">
-        <input type="checkbox" v-model="finished">
-        <div class="task-item_title">{{ title }}</div>
+        <input type="checkbox" v-model="task.finished">
+        <div class="task-item_title">{{ task.title }}</div>
         <div class="task-item_timer">
             {{ formattedDate }}
         </div>
@@ -13,23 +13,20 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, reactive, type PropType, inject } from 'vue'
+import { ref, computed, reactive, type PropType, inject, watch } from 'vue'
 import type { taskListType } from '@/api/taskLists/type';
-import { reqDeleteTask } from '@/api/taskLists';
+import { reqDeleteTask, reqFinished } from '@/api/taskLists';
 import { useCurrentTaskStore } from '@/stores/modules/tasks';
 
 const props = defineProps<{
     task: taskListType
 }>()
 
-const finished = ref(props.task.finished)
-const title = ref(props.task.title)
-const date = ref(props.task.date)
-
+const task = props.task
 
 // 修改日期展示模式
 const formattedDate = computed(() => {
-    let formDate = new Date(date.value)
+    let formDate = new Date(task.date)
     console.log(formDate)
     let year = formDate.getFullYear();
     let month = formDate.getMonth() + 1; // 月份从0开始，需要加1
@@ -51,6 +48,19 @@ const deleteTask = async () => {
     // 刷新页面
     reload()
 }
+
+
+watch(task, async (newValue, oldValue) => {
+    console.log(task.id, "finished改变啦", newValue)
+    const request = await reqFinished({ id: task.id, finished: task.finished })
+    if (request.code === 200) {
+        console.log("finished更新成功")
+        // 刷新界面
+        reload()
+    }
+
+
+})
 </script>
 
 <style scoped lang="scss">

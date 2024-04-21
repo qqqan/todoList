@@ -36,6 +36,11 @@ export interface taskListsType {
     data: taskListType[] | []
 }
 
+export interface updateFinishedType {
+    id: number,
+    finished: boolean
+}
+
 //获取全部任务数据返回数据类型
 export interface taskListsResponseData extends dataType {
     data: taskListType[] | []

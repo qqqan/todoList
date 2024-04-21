@@ -54,6 +54,7 @@ import type { addTaskDataType, taskListType, taskListsType, taskListsResponseDat
 import { reqGetAllTask, reqAddTask } from '@/api/taskLists';
 import { useCurrentTaskStore, useNewTaskStore } from '@/stores/modules/tasks';
 import { storeToRefs } from 'pinia';
+import Task from '@/components/task.vue'
 
 const userId = ref(1)  //当前用户id
 let tasklists = ref<taskListType[]>([]) //全部任务信息

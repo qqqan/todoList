@@ -1,6 +1,6 @@
 // 任务相关数据接口
 import request from "@/utils/request";
-import type { addTaskDataType, taskListsResponseData, taskListType, taskListResponseData, reqCalenderDataType } from "./type";
+import type { addTaskDataType, taskListsResponseData, taskListType, taskListResponseData, reqCalenderDataType, updateFinishedType } from "./type";
 import { ca } from "element-plus/es/locales.mjs";
 
 
@@ -11,7 +11,8 @@ enum API {
     DETAIL_URL = '/tasklists/detail',
     DELETE_URL = '/tasklists/delete',
     UPDATE_URL = '/tasklists/update',
-    CALENDER_URL = '/tasklists/calender'
+    CALENDER_URL = '/tasklists/calender',
+    UPDATEFINISHED_URL = '/tasklists/updateFinished'
 }
 
 // 添加
@@ -36,3 +37,6 @@ export const reqUpdateTask = (data: taskListType) => request.patch<any, any>(API
 
 // 获取calender页所需数据
 export const reqCalender = (data: reqCalenderDataType) => request.post<any, any>(API.CALENDER_URL, data)
+
+// 更新指定任务id的finished
+export const reqFinished = (data: updateFinishedType) => request.patch<any, any>(API.UPDATEFINISHED_URL, data)
