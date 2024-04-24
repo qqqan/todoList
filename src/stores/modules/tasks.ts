@@ -1,5 +1,6 @@
-import { ca } from "element-plus/es/locales.mjs";
+import type { taskListType } from "@/api/taskLists/type";
 import { defineStore } from "pinia";
+
 
 export const useCurrentTaskStore = defineStore('currentTask', {
     state() {
@@ -19,8 +20,9 @@ export const useCurrentTaskStore = defineStore('currentTask', {
                 "time": "",
                 "alarm": "",
                 "repeat": "",
-                "userId": 0
-            }
+                "userId": 0,
+                "finishedDate": ""
+            } as taskListType
         }
     },
     actions: {
@@ -34,7 +36,8 @@ export const useCurrentTaskStore = defineStore('currentTask', {
                 "time": "",
                 "alarm": "",
                 "repeat": "",
-                "userId": 0
+                "userId": 0,
+                "finishedDate": ""
             }
         },
         changeCategory(category: string) {

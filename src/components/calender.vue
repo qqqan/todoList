@@ -14,6 +14,7 @@
             <el-icon>
                 <DArrowRight @click="() => { date = date.add(1, 'year') }" />
             </el-icon>
+            <button @click="console.log(groupedLists)">test</button>
         </div>
         <table class="calender-table">
             <tbody>
@@ -28,9 +29,12 @@
                 </tr>
                 <tr class="calender-table_days">
                     <th v-for="(v, i) in days" :key="i" :class="v.status"
-                        @click="active.date = v.date; emit('send-date', active.date.format('YY-MM-DD'))">
-                        <div :class="{ 'active': checkSame(v) === true }">{{ v.date.date() }}</div>
-                        <slot></slot>
+                        @click="active.date = v.date; emit('send-date', active.date.format('YYYY-MM-DD'));">
+                        <div :class="{ 'active': checkSame(v) === true }" @click="show(v.date)">{{ v.date.date() }}
+                        </div>
+                        <div class="calender-table_list" v-if="groupedLists && isDone(v.date)"
+                            v-for="(list, i) in groupedLists[v.date.format('YYYY-MM-DD')]" :key="i">
+                            {{ list.title }}</div>
                     </th>
                 </tr>
             </tbody>
@@ -40,15 +44,34 @@
 
 <script setup lang="ts">
 import dayjs from 'dayjs'
-import { defineProps, ref, computed, inject, defineEmits, onMounted } from 'vue';
+import { defineProps, ref, computed, inject, defineEmits, onMounted, watch } from 'vue';
 interface dateType {
     date: dayjs.Dayjs,
     status: ""
 }
 
+function show(date) {
+    console.log(date.format('YYYY-MM-DD'))
+    console.log(groupedLists[date.format('YYYY-MM-DD')])
+    console.log(groupedLists)
+}
+
+const props = defineProps({
+    activeDate: {
+        type: String,
+        required: false
+    },
+    groupedLists: {
+        type: Object,
+        required: false
+    }
+})
+const groupedLists = props.groupedLists
+
 const date = ref(dayjs())
+const activeDate = props.activeDate
 const active = ref({
-    date: date.value,
+    date: activeDate ? dayjs(activeDate) : dayjs(),
     status: "active"
 })
 const year = computed(() => { return dayjs(date.value).year() })
@@ -56,7 +79,6 @@ const month = computed(() => { return dayjs(date.value).month() })
 const week = computed(() => { return dayjs(date.value).day() })
 
 function checkSame(nowDate: dateType) {
-    console.log(nowDate)
     return active.value.date.year() === nowDate.date.year() &&
         active.value.date.month() === nowDate.date.month() &&
         active.value.date.date() === nowDate.date.date()
@@ -109,10 +131,28 @@ const days = computed(() => {
 })
 
 // 向父组件传递选定的日期信息
-const emit = defineEmits(['send-date'])
+const emit = defineEmits(['send-date', "current-date"])
+
+// 判定是否有数据
+function isDone(date: dayjs.Dayjs) {
+    if (groupedLists[date.format('YYYY-MM-DD')]) {
+        console.log(date.format('YYYY-MM-DD'))
+        console.log(groupedLists[date.format('YYYY-MM-DD')])
+        return true
+    }
+    return false
+}
 
 onMounted(() => {
-    emit('send-date', active.value.date.format('YY-MM-DD'))
+    emit('send-date', active.value.date.format('YYYY-MM-DD'))
+})
+
+watch(year, (newValue, oldValue) => {
+    emit('current-date', `${year.value}-${month.value}`)
+})
+
+watch(month, (newValue, oldValue) => {
+    emit('current-date', `${year.value}-${month.value}`)
 })
 </script>
 <style>

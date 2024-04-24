@@ -1,16 +1,20 @@
 <template>
     <div class="selector">
-        <el-icon class="el-input__icon" style="position: relative;" v-if="!newTask.date">
-            <Calendar @click="show = !show" style="cursor: pointer;" />
-        </el-icon>
-        <div class="showDate" v-else @click="show = !show" style="cursor: pointer;">{{ formatDate(
-            newTask.date) }} {{ newTask.time }}</div>
+        <div class="selector-header">
+            <el-icon class="el-input__icon" style="position: relative;" v-if="!(!exist && task.date)">
+                <Calendar @click="show = !show" style="cursor: pointer;" />
+            </el-icon>
+            <div class="showDate" v-if="task.date" @click="show = !show" style="cursor: pointer;">{{ formatDate(
+                task.date) }} {{ task.time }}
+            </div>
+        </div>
         <div class="selector-container" v-if="show === true">
             <div class="selector-title">日期</div>
-            <Calender @send-date="(value) => { newTask.date = value }" />
+            <!-- <Calender @send-date="(value) => { task.date = value }" /> -->
+            <Calender :active-date="task.date" @send-date="(value) => { task.date = value }" />
             <div class="selector-time">
-                <CustomSelect :options="timeOptions" placeholder="时间" @send-data="(value) => { newTask.time = value }"
-                    :selected="newTask.time">
+                <CustomSelect :options="timeOptions" placeholder="时间" @send-data="(value) => { task.time = value }"
+                    :selected="task.time">
                     <template #prev>
                         <el-icon>
                             <Clock />
@@ -19,8 +23,8 @@
                 </CustomSelect>
             </div>
             <div class="selector-alarm">
-                <CustomSelect :options="alarmOptions" placeholder="提示" @send-data="(value) => { newTask.alarm = value }"
-                    :selected="newTask.alarm">
+                <CustomSelect :options="alarmOptions" placeholder="提示" @send-data="(value) => { task.alarm = value }"
+                    :selected="task.alarm">
                     <template #prev>
                         <el-icon>
                             <AlarmClock />
@@ -29,8 +33,8 @@
                 </CustomSelect>
             </div>
             <div class="selector-repeat">
-                <CustomSelect :options="repeatOptions" placeholder="重复"
-                    @send-data="(value) => { newTask.repeat = value }" :selected="newTask.repeat">
+                <CustomSelect :options="repeatOptions" placeholder="重复" @send-data="(value) => { task.repeat = value }"
+                    :selected="task.repeat">
                     <template #prev>
                         <el-icon>
                             <Link />
@@ -45,15 +49,43 @@
     </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import Calender from './calender.vue';
 import CustomSelect from './customSelect.vue';
 import { ref } from 'vue'
 import dayjs from 'dayjs';
 import { useNewTaskStore } from '@/stores/modules/tasks';
 import { storeToRefs } from 'pinia';
+import type { taskListType } from '@/api/taskLists/type';
+import type { PropType } from 'vue';
 
-const show = ref(false)
+const props = defineProps({
+    exist: {
+        type: Boolean,
+        default: false,
+        required: false
+    },
+    task: {
+        type: Object as PropType<taskListType>,
+        default: {
+            "id": 0,
+            "finished": false,
+            "title": "",
+            "desc": "",
+            "date": "",
+            "time": "",
+            "alarm": "",
+            "repeat": "",
+            "userId": 0,
+            "finishedDate": ""
+        },
+        required: false
+    }
+})
+
+const show = ref(false) //控制是否显示下拉框
+const exist = props.exist // 控制是否同时显示
+// const task = props.task //传过来的task信息
 
 // 生成时间列表
 function generateTimeList() {
@@ -77,19 +109,13 @@ const repeatOptions = ["每天", "每周", "每月", "每年", "法定工作日"
 const emit = defineEmits(['send-info'])
 
 // 渲染时间格式转换
-function formatDate(yyMMdd) {
-    if (yyMMdd) {
-        // 将 YY-MM-DD 格式的日期字符串解析成 Date 对象
-        const dateParts = yyMMdd.split('-');
-        let year = parseInt(dateParts[0], 10);
+function formatDate(YYYY_MM_DD: string) {
+    if (YYYY_MM_DD) {
+        // 将 YYYY-MM-DD 格式的日期字符串解析成 Date 对象
+        const dateParts = YYYY_MM_DD.split('-');
+        const year = parseInt(dateParts[0], 10);
         const month = parseInt(dateParts[1], 10) - 1; // 月份从 0 开始，需要减去 1
         const day = parseInt(dateParts[2], 10);
-
-        // 根据实际情况处理年份
-        if (year < 100) {
-            // 假设 100 年之前的日期是 20xx 年
-            year += 2000;
-        }
 
         const date = new Date(year, month, day);
 
@@ -100,17 +126,24 @@ function formatDate(yyMMdd) {
     }
 }
 
+// 点击确定时将数据传到父组件
+// const newTaskStore = useNewTaskStore()
+// const { newTask } = storeToRefs(newTaskStore)
 
-const newTaskStore = useNewTaskStore()
-const { newTask } = storeToRefs(newTaskStore)
+// // 确认时更新store里的数据并关闭窗口
+// function confirm() {
+//     show.value = !show.value
+//     newTaskStore.$patch({
+//         newTask: newTask.value
+//     })
+// }
 
-// 确认时更新store里的数据并关闭窗口
+// 确认
 function confirm() {
     show.value = !show.value
-    newTaskStore.$patch({
-        newTask: newTask.value
-    })
 }
+
+
 
 </script>
 
@@ -120,8 +153,16 @@ function confirm() {
     z-index: 10;
 }
 
-.showDate {
-    color: var(--main-color);
+
+.selector-header {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+
+    .showDate {
+        color: var(--main-color);
+        margin-left: .7143rem;
+    }
 }
 
 .selector-container {

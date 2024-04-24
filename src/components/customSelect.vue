@@ -5,7 +5,7 @@
                 <slot name="prev"></slot>
             </div>
             <h1 :class="{ selected: selectedOption !== '' }">{{ selectedOption || placeholder }}</h1>
-            <el-icon>
+            <el-icon class="selected-option_icon">
                 <ArrowDown v-if="isOpen" />
                 <ArrowRight v-else />
             </el-icon>
@@ -14,7 +14,7 @@
             <ul class="options">
                 <li v-for="(option, index) in options" :key="index"
                     @click="selectOption(option); emit('send-data', selectedOption)"
-                    :class="{ 'active': option === selectedOption }">
+                    :class="{ 'select_active': option === selectedOption }">
                     {{ option }}
                 </li>
             </ul>
@@ -55,7 +55,7 @@ const emit = defineEmits(['send-data'])
 
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 .selected {
     color: var(--main-color);
 }
@@ -64,6 +64,7 @@ const emit = defineEmits(['send-data'])
     width: inherit;
     position: relative;
     margin: 1.0714rem 0;
+    color: var(--text-color);
 }
 
 .selected-option {
@@ -77,7 +78,7 @@ const emit = defineEmits(['send-data'])
         margin-right: .3571rem;
     }
 
-    .el-icon {
+    .selected-option_icon {
         position: absolute;
         right: 0;
     }
@@ -87,7 +88,7 @@ const emit = defineEmits(['send-data'])
     position: absolute;
     width: 100%;
     border-radius: .3571rem;
-    background-color: #fff;
+    background-color: var(--bg-color);
     box-shadow: .3rem .3rem 1rem rgba(0, 0, 0, 0.5);
     z-index: 100;
 }
@@ -115,7 +116,7 @@ const emit = defineEmits(['send-data'])
     }
 }
 
-.active {
+.select_active {
     background-color: var(--input-bg-color);
     color: var(--main-color);
 }

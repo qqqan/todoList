@@ -3,7 +3,9 @@
         <div class="slider-container_type1" v-if="selected">
             <div class="slider-head">
                 <input type="checkbox" v-model="currentTask.finished" class="checkbox">
-                <Selector></Selector>
+                <div class="slider-head_selector">
+                    <Selector :exist="true" :task="currentTask"></Selector>
+                </div>
                 <!-- <el-date-picker type="datetime" v-model="currentTask.date" class="date"></el-date-picker> -->
             </div>
             <div class="slider-info">
@@ -33,6 +35,7 @@ import { storeToRefs } from 'pinia';
 import type { taskListType } from '@/api/taskLists/type';
 import type { subTasksResponseData, subTaskType } from '@/api/subTasks/type';
 import { reqGetAllSubTask, reqAddSubTask } from '@/api/subTasks';
+import { reqUpdateTask } from '@/api/taskLists';
 import Textarea from '@/components/textarea.vue';
 import Selector from '@/components/selector.vue';
 
@@ -90,8 +93,11 @@ const addSubTask = async () => {
 }
 
 // 更新任务信息
-function saveData() {
-    console.log('保存信息')
+const saveData = async () => {
+    let response = await reqUpdateTask(currentTask.value)
+    if (response.code === 200) {
+        console.log("保存信息成功")
+    }
 }
 
 
@@ -122,6 +128,17 @@ function saveData() {
         margin: 0 1.4286rem;
         width: 1.4286rem;
         height: 20px;
+    }
+}
+
+.slider-head_selector {
+    :deep(.el-icon) {
+        font-size: 1.4286rem;
+    }
+
+    :deep(.showDate) {
+        font-size: 1.1429rem;
+        color: var(--text-color);
     }
 }
 

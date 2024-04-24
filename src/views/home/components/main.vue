@@ -8,9 +8,9 @@
                 <h1>{{ submenu.title }}</h1>
             </div>
             <div class="main-add">
-                <el-input v-model="newTaskStore.newTask.title" placeholder="+添加任务" @keyup.enter="saveNewTask()">
+                <el-input v-model="newTask.title" placeholder="+添加任务" @keyup.enter="saveNewTask()">
                     <template #suffix>
-                        <Selector />
+                        <Selector :task="newTask" />
                     </template>
                 </el-input>
             </div>
@@ -101,26 +101,58 @@ function updateCurrentStore(task: taskListType) {
 }
 
 
-// 新Task相关逻辑
-const newTaskStore = useNewTaskStore()
-// 创建提交新Task
+// // 新Task相关逻辑
+// const newTaskStore = useNewTaskStore()
+
+// // 创建提交新Task
+// const saveNewTask = async () => {
+//     newTaskStore.newTask.userId = userId.value
+//     // 重设date格式
+//     if (newTaskStore.newTask.date) {
+//         const dateParts = newTaskStore.newTask.date.split('-');
+//         let year = parseInt(dateParts[0], 10);
+//         const month = parseInt(dateParts[1], 10) - 1; // 月份从 0 开始，需要减去 1
+//         const day = parseInt(dateParts[2], 10);
+//         if (year < 100) {
+//             // 假设 100 年之前的日期是 20xx 年
+//             year += 2000;
+//         }
+//         const date = new Date(year, month, day);
+//         newTaskStore.newTask.date = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+//     }
+//     // 调用接口添加新任务
+//     let request = await reqAddTask(newTaskStore.newTask)
+//     if (request.code == 200) {
+//         console.log("添加任务成功")
+//         // 渲染数据到页面
+//         let currentDate = new Date()
+//         currentDate.setHours(0, 0, 0, 0)
+//         let date = new Date(request.data.date)
+//         date.setHours(0, 0, 0, 0)
+//         if (date < currentDate) {
+//             request.data.finished === false ? lisUsed.value.push(request.data) : lisUsedFinished.value.push(request.data)
+//         } else {
+//             request.data.finished === false ? lisToday.value.push(request.data) : lisFinished.value.push(request.data)
+//         }
+//         // 重置store里的newTask数据
+//         newTaskStore.resetNewTask()
+//     }
+// }
+
+// 创建新任务
+const newTask = ref({
+    "finished": false,
+    "title": "",
+    "desc": "",
+    "date": "",
+    "time": "",
+    "alarm": "",
+    "repeat": "",
+    "userId": userId.value
+})
+
 const saveNewTask = async () => {
-    newTaskStore.newTask.userId = userId.value
-    // 重设date格式
-    if (newTaskStore.newTask.date) {
-        const dateParts = newTaskStore.newTask.date.split('-');
-        let year = parseInt(dateParts[0], 10);
-        const month = parseInt(dateParts[1], 10) - 1; // 月份从 0 开始，需要减去 1
-        const day = parseInt(dateParts[2], 10);
-        if (year < 100) {
-            // 假设 100 年之前的日期是 20xx 年
-            year += 2000;
-        }
-        const date = new Date(year, month, day);
-        newTaskStore.newTask.date = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
-    }
-    // 调用接口添加新任务
-    let request = await reqAddTask(newTaskStore.newTask)
+    let request = await reqAddTask(newTask.value)
     if (request.code == 200) {
         console.log("添加任务成功")
         // 渲染数据到页面
@@ -133,8 +165,18 @@ const saveNewTask = async () => {
         } else {
             request.data.finished === false ? lisToday.value.push(request.data) : lisFinished.value.push(request.data)
         }
-        // 重置store里的newTask数据
-        newTaskStore.resetNewTask()
+        // 重置newTask数据
+        newTask.value = {
+            "finished": false,
+            "title": "",
+            "desc": "",
+            "date": "",
+            "time": "",
+            "alarm": "",
+            "repeat": "",
+            "userId": userId.value
+        }
+        // newTaskStore.resetNewTask()
     }
 }
 
@@ -190,6 +232,10 @@ watch(submenu.value, (newValue, oldValue) => {
             ::v-deep .el-input__wrapper {
                 background-color: var(--input-bg-color);
                 box-shadow: none;
+
+                .el-input__inner {
+                    --el-input-inner-height: none
+                }
             }
 
         }
